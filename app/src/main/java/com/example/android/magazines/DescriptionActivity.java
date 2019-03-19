@@ -15,6 +15,9 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import static com.example.android.magazines.Constants.Megher_Kole_Rod_Heseche;
 
 public class DescriptionActivity extends AppCompatActivity {
@@ -27,10 +30,12 @@ public class DescriptionActivity extends AppCompatActivity {
     private Button show;
     private String url1;
 
+    private StorageReference mStorage;
+
     public String Jodi_Tor_Dak_Shune = "Jodi_Tor_Dak_Shune_Rabindranath_Tagore";
     public String Amaro_Porano_Jaha_Chay = "Amaro_Porano_Jaha_Chay_Rabindranath_Tagore";
     public String Gramchara_oi_ranga_matir_poth = "Gramchara_oi_ranga_matir_poth_Rabindranath_Tagore";
-    public String Megher_Kole_Rod_Hesech = "Megher_Kole_Rod_Hesech_Rabindranath_Tagore";
+    public String Megher_Kole_Rod_Heseche = "Megher_Kole_Rod_Heseche_Rabindranath_Tagore";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +48,19 @@ public class DescriptionActivity extends AppCompatActivity {
         webView = (WebView) findViewById(R.id.simpleWebView);
         webView1 = (WebView) findViewById(R.id.translatedsimpleWebView);
 
+        mStorage = FirebaseStorage.getInstance().getReference().child("android_asset");
+
         extras = getIntent().getExtras();
         if(!extras.equals(null)){
 
             final String data = extras.getString("titles");
 
-            Log.d(TAG, "coming data " + data );
+           Log.d(TAG, "coming data " + data );
 
-            String url = "file:///android_asset/"+data+".html";
+           String url = "file:///android_asset/"+data+".html";
+           // String url = "mStorage" +data+".html";
+
+
             webView.loadUrl(url);
 
 
